@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{project-name}} — in-browser demo</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font: 16px/1.6 ui-monospace, Menlo, monospace; max-width: 640px; margin: 6vh auto; padding: 0 1.2rem; }
+    h1 { font-size: 1.25rem; margin: 0 0 .25rem; }
+    .sub { opacity: .7; margin: 0 0 1.5rem; }
+    .card { border: 1px solid currentColor; border-radius: 10px; padding: 1rem 1.2rem; }
+    .meta { opacity: .6; font-size: .8rem; display: flex; justify-content: space-between; margin-bottom: .8rem; }
+    #out { min-height: 6.5rem; white-space: pre-wrap; word-break: break-word; }
+    #out .name { display: inline-block; margin: 0 .35rem .35rem 0; padding: .1rem .45rem; border: 1px solid; border-radius: 6px; }
+    .controls { display: flex; gap: 1rem; align-items: center; margin-top: 1rem; flex-wrap: wrap; }
+    button { font: inherit; padding: .4rem .9rem; border: 1px solid currentColor; border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
+    button:hover { opacity: .7; }
+    label { display: flex; gap: .5rem; align-items: center; font-size: .85rem; }
+    .err { color: #c0392b; }
+  </style>
+</head>
+<body>
+  <h1>{{project-name}}</h1>
+  <p class="sub">{{one-line description}} — running entirely in your browser. No server, no API.</p>
+
+  <div class="card">
+    <div class="meta"><span id="info">loading model…</span><span>in-browser · js</span></div>
+    <div id="out"><span style="opacity:.5">press generate to sample…</span></div>
+    <div class="controls">
+      <button id="go" disabled>generate</button>
+      <label>temp <span id="tval">1.00</span>
+        <input id="temp" type="range" min="0.4" max="1.4" step="0.05" value="1.0" />
+      </label>
+    </div>
+  </div>
+
+  <script type="module">
+    // The whole model + inference lives in inference.js — read it, it's short.
+    import { loadModel, generate } from './inference.js';
+    const $ = (id) => document.getElementById(id);
+    let model = null;
+    try {
+      model = await loadModel('../model');
+      const n = Object.values(model.params).reduce((a, t) => a + t.data.length, 0);
+      $('info').textContent = `${model.meta.arch ?? model.meta.backend} · ${n.toLocaleString()} params · vocab ${model.meta.vocab.length}`;
+      $('go').disabled = false;
+    } catch (e) {
+      $('info').innerHTML = `<span class="err">couldn't load model: ${e.message}</span>`;
+    }
+    $('temp').oninput = (e) => ($('tval').textContent = (+e.target.value).toFixed(2));
+    $('go').onclick = () => {
+      const T = +$('temp').value, names = [];
+      for (let i = 0; i < 12; i++) { const s = generate(model.meta, model.params, { temperature: T }); if (s) names.push(s); }
+      $('out').innerHTML = names.map((s) => `<span class="name">${s}</span>`).join('');
+    };
+  </script>
+</body>
+</html>
