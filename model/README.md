@@ -1,8 +1,8 @@
 # The model artifact (the source of truth)
 
 This folder is the **contract** between training (Python) and inference
-(the browser). Any consumer — the demo in [`../web`](../web), or the personal
-website — reads these files with a plain `fetch()` and needs **no per-model
+(the browser). Any consumer, the demo in [`../web`](../web), or the personal
+website, reads these files with a plain `fetch()` and needs **no per-model
 code**. Keep this convention stable and every project here stays interchangeable.
 
 A model is one folder with two files:
@@ -10,7 +10,7 @@ A model is one folder with two files:
 ```
 model/
 ├── meta.json      # everything needed to render + run the model, EXCEPT the weights
-└── weights.json   # the weights (for tiny models)   — OR —   model.onnx (for bigger ones)
+└── weights.json   # the weights (for tiny models), OR, model.onnx (for bigger ones)
 ```
 
 ## `meta.json`
@@ -39,7 +39,7 @@ model/
 ```
 
 **Invariants** (a consumer relies on all of these):
-- `vocab[0]` is the boundary token `"."` — generation starts with a full window
+- `vocab[0]` is the boundary token `"."`, generation starts with a full window
   of it and stops when the model emits it.
 - `vocab` order **is** the label→index map; `weights.json` indexes into it.
 - For `backend: "js"`, `arch` decides the forward pass (`bigram` = a `V×V`

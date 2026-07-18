@@ -5,7 +5,7 @@
 
 A small ML project built to the "**repo = source of truth, website = presentation
 layer**" pattern: the trained model lives here as a static artifact, and any
-consumer (a browser demo, or a personal site) runs it **client-side** — no server,
+consumer (a browser demo, or a personal site) runs it **client-side**, no server,
 no inference cost.
 
 > **Live demo:** [`web/`](web/) locally · embedded on [demirbasaf.dev](https://demirbasaf.dev)
@@ -18,7 +18,7 @@ no inference cost.
 
 ## How it works
 
-{{2–4 sentences + a tiny diagram of the forward pass. Keep it readable.}}
+{{2, 4 sentences + a tiny diagram of the forward pass. Keep it readable.}}
 
 ## Run it yourself
 
@@ -64,7 +64,7 @@ form and .gitignore the raw source.}}
 └── LICENSE
 ```
 
-See **[`model/README.md`](model/README.md)** for the artifact convention — the
+See **[`model/README.md`](model/README.md)** for the artifact convention, the
 contract that lets any front-end consume any project here uniformly.
 
 ## Using this template
@@ -80,4 +80,4 @@ adapt `train/train.py`, run the two commands above, and fill in this README.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).

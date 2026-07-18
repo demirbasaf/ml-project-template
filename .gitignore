@@ -4,7 +4,7 @@ __pycache__/
 .venv/
 .ipynb_checkpoints/
 
-# raw datasets (not redistributed — see README "Data"); only data/names.txt ships
+# raw datasets (not redistributed, see README "Data"); only data/names.txt ships
 *.xlsx
 *.csv
 

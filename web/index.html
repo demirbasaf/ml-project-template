@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{project-name}} — in-browser demo</title>
+  <title>{{project-name}}, in-browser demo</title>
   <style>
     :root { color-scheme: light dark; }
     body { font: 16px/1.6 ui-monospace, Menlo, monospace; max-width: 640px; margin: 6vh auto; padding: 0 1.2rem; }
@@ -22,7 +22,7 @@
 </head>
 <body>
   <h1>{{project-name}}</h1>
-  <p class="sub">{{one-line description}} — running entirely in your browser. No server, no API.</p>
+  <p class="sub">{{one-line description}}, running entirely in your browser. No server, no API.</p>
 
   <div class="card">
     <div class="meta"><span id="info">loading model…</span><span>in-browser · js</span></div>
@@ -36,7 +36,7 @@
   </div>
 
   <script type="module">
-    // The whole model + inference lives in inference.js — read it, it's short.
+    // The whole model + inference lives in inference.js, read it, it's short.
     import { loadModel, generate } from './inference.js';
     const $ = (id) => document.getElementById(id);
     let model = null;
